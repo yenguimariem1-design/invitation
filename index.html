@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invitation — Soutenance de Mémoire · Mariem YENGUI</title>
+  <!-- Open Graph / Teams preview -->
+  <meta property="og:type"         content="website">
+  <meta property="og:title"        content="Invitation — Soutenance de Mémoire · Mariem YENGUI">
+  <meta property="og:description"  content="27 Juin 2026 · 10h00 · IHEC Sfax — Amphi Syphax">
+  <meta property="og:url"          content="https://mariemyengui.netlify.app">
+  <meta property="og:image"        content="https://mariemyengui.netlify.app/preview.svg">
+  <meta property="og:image:type"   content="image/svg+xml">
+  <meta property="og:image:width"  content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="Invitation — Soutenance de Mémoire · Mariem YENGUI">
+  <meta name="twitter:image"       content="https://mariemyengui.netlify.app/preview.svg">
+  <!-- Placer campus.mp4 dans le même dossier que ce fichier -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Lato:wght@300;400&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --olive:       #6B7C3E;
+      --olive-dark:  #4A5728;
+      --olive-deep:  #2D371E;
+      --gold:        #C9A84C;
+      --gold-light:  #E8D08A;
+      --cream:       #FAF8F2;
+      --blue-powder: #7BA7BC;
+    }
+
+    html, body {
+      width: 100%; height: 100%;
+      overflow: hidden;
+      background: var(--olive-deep);
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    /* ── Global background photo (place campus_base64.txt content in src) ── */
+    #bg-photo {
+      position: fixed; inset: 0; z-index: -1;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0.07;
+      filter: sepia(50%) hue-rotate(60deg) saturate(0.6);
+      pointer-events: none;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(107,124,62,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(201,168,76,0.10) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    /* ════════════════════════════════════════════════════════════════
+       PHASE 1 — ENVELOPE SCENE
+    ════════════════════════════════════════════════════════════════ */
+
+    #envelope-scene {
+      position: fixed; inset: 0; z-index: 10;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 28px;
+      animation: float 3s ease-in-out infinite;
+      transition: opacity 0.6s ease;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-10px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #envelope-scene { animation: none; }
+      * { transition-duration: 0.01ms !important; }
+    }
+
+    /* ── Envelope wrapper ── */
+    #envelope {
+      position: relative;
+      width: clamp(300px, 60vw, 480px);
+      height: clamp(210px, 42vw, 336px);
+      cursor: pointer;
+      perspective: 900px;
+      filter: drop-shadow(0 28px 56px rgba(0,0,0,0.6));
+    }
+
+    /* ── Envelope body ── */
+    .env-back {
+      position: absolute; inset: 0;
+      background: linear-gradient(160deg, #8A9E52 0%, var(--olive) 40%, var(--olive-dark) 100%);
+      border-radius: 4px; overflow: hidden;
+      border: 1px solid var(--gold);
+      box-shadow:
+        inset 0 0 0 4px rgba(201,168,76,0.18),
+        inset 0 0 18px rgba(201,168,76,0.10);
+    }
+    /* linen texture */
+    .env-back::after {
+      content: ''; position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(
+        0deg, transparent, transparent 12px,
+        rgba(255,255,255,0.025) 12px, rgba(255,255,255,0.025) 13px
+      );
+    }
+    /* inner golden double border */
+    .env-back::before {
+      content: ''; position: absolute; inset: 5px;
+      border: 1px solid rgba(201,168,76,0.55);
+      border-radius: 2px; pointer-events: none;
+      box-shadow: inset 0 0 0 3px rgba(201,168,76,0.10);
+    }
+
+    /* ── Side V-triangles ── */
+    .env-left, .env-right {
+      position: absolute; bottom: 0;
+      width: 0; height: 0;
+      border-bottom: solid var(--olive-dark);
+    }
+    .env-left {
+      left: 0;
+      border-left: 0px solid transparent;
+      border-right: clamp(150px, 30vw, 240px) solid transparent;
+      border-bottom-width: clamp(105px, 21vw, 168px);
+    }
+    .env-right {
+      right: 0;
+      border-right: 0px solid transparent;
+      border-left: clamp(150px, 30vw, 240px) solid transparent;
+      border-bottom-width: clamp(105px, 21vw, 168px);
+    }
+
+    /* ── Bottom triangle ── */
+    .env-bottom {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: clamp(105px, 21vw, 168px);
+      background: linear-gradient(to top, #3A4820, var(--olive-dark));
+      clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
+    }
+    .env-bottom::before {
+      content: ''; position: absolute;
+      bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 1px; height: 60%;
+      background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.6));
+    }
+
+    /* ── Flap ── */
+    .env-flap {
+      position: absolute; top: 0; left: 0; right: 0;
+      height: clamp(115px, 23vw, 184px);
+      background: linear-gradient(180deg, #9AAF5A 0%, #7A9045 50%, var(--olive) 100%);
+      clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+      transform-origin: top center;
+      transform-style: preserve-3d;
+      transition: transform 0.95s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 5;
+      box-shadow: inset 0 -2px 8px rgba(0,0,0,0.25);
+    }
+    /* golden edge highlight on flap */
+    .env-flap::after {
+      content: ''; position: absolute; inset: 0;
+      clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+      background: linear-gradient(
+        180deg,
+        rgba(201,168,76,0.35) 0%,
+        rgba(201,168,76,0.12) 40%,
+        transparent 100%
+      );
+    }
+    .env-flap.open { transform: rotateX(-180deg); }
+
+    /* ── Luxury seal ── */
+    #seal {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: clamp(58px, 10vw, 80px);
+      height: clamp(58px, 10vw, 80px);
+      border-radius: 50%;
+      background: radial-gradient(circle at 32% 32%, var(--gold-light) 0%, var(--gold) 55%, #9A7830 100%);
+      /* double concentric circles via border + box-shadow */
+      border: 2px solid var(--gold-light);
+      box-shadow:
+        0 0 0 4px var(--gold),
+        0 0 0 7px rgba(201,168,76,0.28),
+        0 5px 18px rgba(0,0,0,0.55),
+        inset 0 0 14px rgba(255,255,255,0.12),
+        inset 0 2px 4px rgba(255,255,255,0.25);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 10; transition: opacity 0.4s ease;
+    }
+    .seal-letters {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(15px, 2.6vw, 22px);
+      font-weight: 700; color: var(--olive-dark);
+      letter-spacing: 1px; line-height: 1;
+      position: relative; z-index: 1;
+    }
+    /* ✦ ornaments at 4 cardinal positions */
+    .seal-ornament {
+      position: absolute;
+      color: var(--olive-dark);
+      font-size: clamp(7px, 1.2vw, 10px);
+      line-height: 1;
+      opacity: 0.85;
+    }
+    .seal-ornament.t { top: clamp(3px, 0.5vw, 5px);    left: 50%; transform: translateX(-50%); }
+    .seal-ornament.b { bottom: clamp(3px, 0.5vw, 5px);  left: 50%; transform: translateX(-50%); }
+    .seal-ornament.l { left: clamp(3px, 0.5vw, 5px);    top: 50%;  transform: translateY(-50%); }
+    .seal-ornament.r { right: clamp(3px, 0.5vw, 5px);   top: 50%;  transform: translateY(-50%); }
+
+    /* ── Click hint ── */
+    .click-hint {
+      font-family: 'Lato', sans-serif;
+      font-size: clamp(0.72rem, 1.6vw, 0.88rem);
+      font-weight: 300; letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(232, 208, 138, 0.70);
+      transition: opacity 0.5s ease; user-select: none;
+    }
+    .click-hint::after {
+      content: ' ·';
+      animation: blink 1.8s ease-in-out infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+
+    /* ════════════════════════════════════════════════════════════════
+       PHASE 2 — LETTER (SCROLLABLE)
+    ════════════════════════════════════════════════════════════════ */
+
+    #letter {
+      position: fixed; inset: 0; z-index: 50;
+      height: 100vh;
+      overflow-y: auto;
+      overflow-x: hidden;
+      transform: translateY(100%) scale(0.8);
+      opacity: 0;
+      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+                  opacity   0.7s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+      scroll-behavior: smooth;
+    }
+    #letter.visible {
+      transform: translateY(0) scale(1);
+      opacity: 1; pointer-events: auto;
+    }
+
+    /* ─────────────────────────────────────────
+       SECTION 1 — Invitation hero (100vh, vidéo)
+    ───────────────────────────────────────── */
+    #section-1 {
+      position: relative;
+      height: 100vh; min-height: 500px;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+
+    #campus-video {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%; object-fit: cover;
+      filter: sepia(40%) hue-rotate(60deg) saturate(1.4) brightness(0.85);
+      z-index: 0;
+    }
+    #letter-bg-fallback {
+      position: absolute; inset: 0; z-index: 0;
+      background: linear-gradient(160deg, var(--olive-deep) 0%, #3A4820 50%, var(--olive-dark) 100%);
+    }
+    .video-overlay {
+      position: absolute; inset: 0; z-index: 1;
+      background: rgba(45, 55, 30, 0.50);
+    }
+
+    .letter-border {
+      position: absolute; inset: 16px; z-index: 2;
+      border: 1px solid rgba(201,168,76,0.35); pointer-events: none;
+    }
+    .letter-border::before {
+      content: ''; position: absolute; inset: 6px;
+      border: 1px solid rgba(201,168,76,0.15);
+    }
+    .letter-border::after {
+      content: '✦'; position: absolute;
+      top: -10px; left: 50%; transform: translateX(-50%);
+      color: var(--gold); font-size: 14px;
+    }
+
+    .corner {
+      position: absolute; z-index: 3;
+      color: rgba(201,168,76,0.45); font-size: 18px; pointer-events: none;
+    }
+    .corner.tl { top: 28px;    left: 30px;  }
+    .corner.tr { top: 28px;    right: 30px; }
+    .corner.bl { bottom: 28px; left: 30px;  }
+    .corner.br { bottom: 28px; right: 30px; }
+
+    .filet-h {
+      position: absolute; z-index: 3;
+      left: clamp(30px, 6vw, 60px); right: clamp(30px, 6vw, 60px);
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(201,168,76,0.5), transparent);
+    }
+    .filet-h.top    { top: 28px; }
+    .filet-h.bottom { bottom: 28px; }
+
+    /* ── Content section 1 ── */
+    .letter-content {
+      position: relative; z-index: 5;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center;
+      padding: clamp(28px, 5vw, 64px) clamp(24px, 8vw, 84px);
+      max-width: min(740px, 88vw);
+      opacity: 0; transform: translateY(22px);
+      transition: opacity 0.7s ease 0.15s, transform 0.7s ease 0.15s;
+    }
+    .letter-content.show { opacity: 1; transform: translateY(0); }
+
+    .filet-top, .filet-bottom {
+      width: 100%; display: flex; align-items: center; gap: 10px;
+      margin-bottom: 20px;
+    }
+    .filet-bottom { margin-top: 20px; margin-bottom: 0; }
+    .filet-top .line, .filet-bottom .line {
+      flex: 1; height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+    }
+    .filet-top .ornament, .filet-bottom .ornament {
+      color: var(--gold); font-size: 10px; letter-spacing: 4px;
+    }
+
+    .letter-label {
+      font-family: 'Lato', sans-serif;
+      font-size: clamp(0.6rem, 1.3vw, 0.72rem); font-weight: 300;
+      letter-spacing: 0.35em; text-transform: uppercase;
+      color: var(--gold-light); margin-bottom: 18px;
+    }
+    .letter-label .star { color: var(--gold); margin: 0 6px; }
+
+    .letter-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5.5vw, 3.7rem);
+      font-weight: 400; font-style: italic;
+      color: var(--cream); letter-spacing: 0.04em;
+      line-height: 1.1; margin-bottom: 6px;
+    }
+    .letter-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(0.82rem, 1.7vw, 0.98rem);
+      font-weight: 300; font-style: italic;
+      color: rgba(250,248,242,0.68); letter-spacing: 0.05em;
+      line-height: 1.7; margin-bottom: 10px;
+    }
+    .letter-degree {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(0.84rem, 1.8vw, 1.0rem);
+      font-weight: 500; color: var(--gold-light);
+      letter-spacing: 0.09em; margin-bottom: 20px;
+    }
+    .sep {
+      color: var(--gold); font-size: 10px;
+      letter-spacing: 8px; margin: 4px 0 18px;
+    }
+
+    /* ── Grille infos (date / heure / lieu) ── */
+    .details-grid {
+      display: flex;
+      align-items: stretch;
+      margin: 6px 0 22px;
+      border: 1px solid rgba(201,168,76,0.22);
+      border-radius: 2px;
+      width: 100%;
+      max-width: min(480px, 100%);
+      overflow: hidden;
+    }
+    .details-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding: clamp(12px, 2vw, 18px) clamp(6px, 1.2vw, 12px);
+    }
+    .details-col-sep {
+      width: 1px;
+      background: rgba(201,168,76,0.20);
+      flex-shrink: 0;
+    }
+    .details-col-label {
+      font-family: 'Lato', sans-serif;
+      font-size: clamp(0.44rem, 0.8vw, 0.52rem);
+      font-weight: 300;
+      letter-spacing: 0.42em;
+      text-transform: uppercase;
+      color: rgba(201,168,76,0.52);
+      line-height: 1;
+    }
+    .details-col-value {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(0.92rem, 1.9vw, 1.12rem);
+      font-weight: 400;
+      color: var(--cream);
+      letter-spacing: 0.03em;
+      line-height: 1.2;
+    }
+    .details-col-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(0.72rem, 1.3vw, 0.82rem);
+      font-weight: 300;
+      font-style: italic;
+      color: rgba(250,248,242,0.55);
+      letter-spacing: 0.04em;
+      line-height: 1;
+    }
+
+    .letter-honour {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(0.82rem, 1.7vw, 0.95rem);
+      font-style: italic; font-weight: 300;
+      color: rgba(250,248,242,0.65); letter-spacing: 0.05em;
+    }
+
+    /* ── Honour filet + promo line ── */
+    .honour-filet {
+      width: 100%; height: 1px;
+      background: linear-gradient(to right, transparent, rgba(201,168,76,0.45), transparent);
+      margin: 14px 0 10px;
+    }
+    .letter-promo {
+      font-family: 'Lato', sans-serif;
+      font-size: clamp(0.54rem, 1.05vw, 0.63rem);
+      font-weight: 300; letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(232,208,138,0.60);
+    }
+
+    /* ── Scroll arrow ── */
+    .scroll-arrow {
+      position: absolute; bottom: 32px; left: 50%;
+      transform: translateX(-50%); z-index: 6;
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      opacity: 0; transition: opacity 0.8s ease;
+      pointer-events: none;
+    }
+    .scroll-arrow.show { opacity: 1; }
+    .scroll-arrow span {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.6rem; font-weight: 300;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: rgba(232,208,138,0.55);
+    }
+    .scroll-arrow svg { animation: bounce 1.6s ease-in-out infinite; }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(7px); }
+    }
+
+    /* ─────────────────────────────────────────
+       SECTIONS 2, 3, 4 — compact, no min-height
+    ───────────────────────────────────────── */
+    .section-dark {
+      position: relative;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: clamp(28px, 4vh, 42px) clamp(16px, 8vw, 60px);
+      background: var(--olive-deep); text-align: center;
+    }
+    .section-dark::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        radial-gradient(ellipse at 50% 0%, rgba(107,124,62,0.12) 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 100%, rgba(201,168,76,0.07) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    /* fade-in on scroll */
+    .fade-section {
+      opacity: 0; transform: translateY(36px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+      width: 100%; display: flex; flex-direction: column; align-items: center;
+    }
+    .fade-section.visible { opacity: 1; transform: translateY(0); }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.2rem, 3vw, 1.8rem);
+      font-weight: 400; font-style: italic;
+      color: var(--gold-light); letter-spacing: 0.08em;
+      margin-bottom: 24px;
+    }
+    .section-divider {
+      width: min(400px, 80vw); height: 1px;
+      background: linear-gradient(to right, transparent, rgba(201,168,76,0.45), transparent);
+      margin-bottom: 32px;
+    }
+
+    /* ── Section 2 — Compte à rebours ── */
+    .countdown-grid {
+      display: flex; gap: clamp(10px, 2.5vw, 28px);
+      justify-content: center; flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .countdown-block {
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .countdown-num {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 6.5vw, 4rem);
+      font-weight: 700;
+      color: var(--olive-dark);
+      background: linear-gradient(160deg, #F0E4A8 0%, var(--gold-light) 60%, #D4B86A 100%);
+      border: 1.5px solid var(--gold);
+      border-radius: 4px;
+      min-width: clamp(68px, 15vw, 108px);
+      padding: clamp(10px, 2vw, 18px) clamp(6px, 1.2vw, 12px);
+      line-height: 1; text-align: center;
+      box-shadow:
+        0 6px 24px rgba(0,0,0,0.40),
+        0 1px 0 rgba(255,255,255,0.35) inset,
+        0 -2px 0 rgba(0,0,0,0.12) inset;
+    }
+    .countdown-label {
+      font-family: 'Lato', sans-serif;
+      font-size: clamp(0.56rem, 1vw, 0.65rem);
+      font-weight: 300; letter-spacing: 0.3em;
+      text-transform: uppercase; color: rgba(232,208,138,0.65);
+      margin-top: 10px;
+    }
+    .countdown-colon {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 3.5vw, 2.6rem);
+      font-weight: 400; color: rgba(201,168,76,0.45);
+      align-self: center; padding-bottom: 20px;
+    }
+    .countdown-done {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      font-style: italic; color: var(--gold-light); letter-spacing: 0.06em;
+    }
+
+    /* ── Section 3 — Lieu ── */
+    .location-address {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(0.95rem, 2.2vw, 1.2rem);
+      font-weight: 400; color: rgba(250,248,242,0.80);
+      letter-spacing: 0.06em; line-height: 1.9; margin-bottom: 28px;
+    }
+    .location-address strong { color: var(--gold-light); font-weight: 500; }
+
+    .map-container {
+      width: min(700px, 90vw);
+      height: clamp(200px, 32vw, 360px);
+      border: 1px solid rgba(201,168,76,0.35);
+      border-radius: 3px; overflow: hidden;
+      margin-bottom: 24px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+    .map-container iframe {
+      width: 100%; height: 100%; border: none;
+      filter: grayscale(25%) hue-rotate(10deg);
+    }
+
+    .location-btns { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 26px; background: transparent; border-radius: 2px;
+      font-family: 'Lato', sans-serif;
+      font-size: clamp(0.62rem, 1.2vw, 0.75rem);
+      letter-spacing: 0.18em; text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.3s, border-color 0.3s, color 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+    .btn-outline.green { border: 1.5px solid var(--olive); color: var(--cream); }
+    .btn-outline.green:hover {
+      background: rgba(107,124,62,0.2); border-color: var(--gold-light);
+      color: var(--gold-light); box-shadow: 0 0 14px rgba(107,124,62,0.3);
+    }
+    .btn-outline.gold-border { border: 1.5px solid var(--gold); color: var(--cream); }
+    .btn-outline.gold-border:hover {
+      background: rgba(201,168,76,0.15); border-color: var(--gold-light);
+      color: var(--gold-light); box-shadow: 0 0 14px rgba(201,168,76,0.25);
+    }
+
+    /* ── Section 4 — En ligne + Clôture ── */
+    .online-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(0.95rem, 2.2vw, 1.2rem);
+      font-weight: 300; font-style: italic;
+      color: rgba(250,248,242,0.70); letter-spacing: 0.06em;
+      line-height: 1.8; margin-bottom: 28px;
+    }
+
+    #teams-btn {
+      display: inline-flex; align-items: center; gap: 9px;
+      padding: 12px 30px; background: transparent;
+      border: 1.5px solid var(--blue-powder); border-radius: 2px;
+      color: var(--cream); font-family: 'Lato', sans-serif;
+      font-size: clamp(0.65rem, 1.3vw, 0.82rem);
+      letter-spacing: 0.18em; text-transform: uppercase;
+      text-decoration: none; cursor: pointer; margin-bottom: 32px;
+      transition: background 0.3s, border-color 0.3s, color 0.3s, box-shadow 0.3s;
+    }
+    #teams-btn:hover {
+      background: rgba(123,167,188,0.18); border-color: var(--gold-light);
+      color: var(--gold-light); box-shadow: 0 0 18px rgba(123,167,188,0.25);
+    }
+    #teams-btn svg { flex-shrink: 0; }
+
+    .closing-sep {
+      width: min(300px, 70vw); height: 1px;
+      background: linear-gradient(to right, transparent, rgba(201,168,76,0.4), transparent);
+      margin-bottom: 24px;
+    }
+    .closing-text {
+      font-family: 'Lato', sans-serif;
+      font-size: clamp(0.60rem, 1.1vw, 0.70rem); font-weight: 300;
+      letter-spacing: 0.32em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 10px;
+    }
+    .closing-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.2rem, 3vw, 1.9rem);
+      font-weight: 400; font-style: italic;
+      color: var(--cream); letter-spacing: 0.04em; margin-bottom: 8px;
+    }
+    .closing-institution {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(0.78rem, 1.6vw, 0.9rem);
+      font-weight: 300; font-style: italic;
+      color: rgba(232,208,138,0.50); letter-spacing: 0.1em;
+    }
+    /* Monogramme central décoratif */
+    .closing-monogram {
+      width: clamp(52px, 9vw, 72px);
+      height: clamp(52px, 9vw, 72px);
+      border-radius: 50%;
+      background: radial-gradient(circle at 32% 32%, rgba(201,168,76,0.18) 0%, rgba(201,168,76,0.06) 100%);
+      border: 1px solid rgba(201,168,76,0.30);
+      box-shadow: 0 0 0 3px rgba(201,168,76,0.10), 0 0 0 6px rgba(201,168,76,0.05);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 18px;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1rem, 2.2vw, 1.4rem);
+      font-weight: 700;
+      color: rgba(201,168,76,0.65);
+      letter-spacing: 1px;
+    }
+
+    .section-footer-filet {
+      width: min(500px, 85vw); height: 1px;
+      background: linear-gradient(to right, transparent, rgba(201,168,76,0.4), transparent);
+      margin-top: 36px;
+    }
+    .section-footer-ornament {
+      color: var(--gold); font-size: 12px;
+      letter-spacing: 8px; margin-top: 14px;
+    }
+
+    /* ── Section 1 — Rails décoratifs latéraux ── */
+    .side-rail {
+      position: absolute;
+      top: 44px; bottom: 44px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 3;
+      pointer-events: none;
+    }
+    .side-rail-left  { left: clamp(28px, 4.5vw, 66px); }
+    .side-rail-right { right: clamp(28px, 4.5vw, 66px); }
+    .rail-line {
+      flex: 1;
+      width: 1px;
+      background: linear-gradient(to bottom,
+        transparent 0%,
+        rgba(201,168,76,0.20) 18%,
+        rgba(201,168,76,0.38) 50%,
+        rgba(201,168,76,0.20) 82%,
+        transparent 100%
+      );
+    }
+    .rail-gem {
+      color: rgba(201,168,76,0.46);
+      font-size: 8px;
+      padding: 10px 0;
+      line-height: 1;
+    }
+    @media (max-width: 560px) { .side-rail { display: none; } }
+
+    /* ── Section 1 — Texte d'en-tête et pied de section ── */
+    .section-eyebrow {
+      position: absolute;
+      top: 44px; left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      font-family: 'Lato', sans-serif;
+      font-size: clamp(0.46rem, 0.85vw, 0.56rem);
+      font-weight: 300;
+      letter-spacing: 0.46em;
+      text-transform: uppercase;
+      color: rgba(201,168,76,0.36);
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .section-year-mark {
+      position: absolute;
+      bottom: 70px; left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(0.48rem, 0.85vw, 0.56rem);
+      font-weight: 300;
+      font-style: italic;
+      letter-spacing: 0.32em;
+      color: rgba(201,168,76,0.30);
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    /* ── Séparation subtile entre sections ── */
+    .section-dark + .section-dark {
+      border-top: 1px solid rgba(201,168,76,0.09);
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       MOBILE — smartphones (≤ 480px)
+    ═══════════════════════════════════════════════════════ */
+    @media (max-width: 480px) {
+
+      /* ── Scroll iOS fluide ── */
+      #letter { -webkit-overflow-scrolling: touch; }
+
+      /* ── Enveloppe : se réduit avec l'écran ── */
+      #envelope {
+        width: 84vw;
+        height: calc(84vw * 0.70);
+        touch-action: manipulation;
+      }
+      .env-flap  { height: calc(84vw * 0.383); }
+      .env-left  { border-right-width: 42vw; border-bottom-width: calc(84vw * 0.35); }
+      .env-right { border-left-width:  42vw; border-bottom-width: calc(84vw * 0.35); }
+      .env-bottom { height: calc(84vw * 0.35); }
+
+      #seal { width: clamp(44px, 13vw, 60px); height: clamp(44px, 13vw, 60px); }
+
+      #envelope-scene { gap: 20px; }
+
+      .click-hint { font-size: 0.70rem; letter-spacing: 0.16em; }
+
+      /* ── Section 1 : cache les décorations trop larges ── */
+      .section-eyebrow,
+      .section-year-mark { display: none; }
+
+      /* ── Contenu invitation ── */
+      .letter-content {
+        padding: 18px 14px;
+        max-width: 96vw;
+      }
+
+      .filet-top, .filet-bottom { margin-bottom: 10px; }
+      .filet-bottom { margin-top: 10px; }
+
+      .letter-label {
+        font-size: 0.53rem;
+        letter-spacing: 0.12em;
+        margin-bottom: 10px;
+      }
+
+      .letter-name {
+        font-size: clamp(1.6rem, 8.5vw, 2.2rem);
+        margin-bottom: 8px;
+      }
+
+      .letter-subtitle {
+        font-size: 0.80rem;
+        letter-spacing: 0.02em;
+        line-height: 1.6;
+        margin-bottom: 7px;
+      }
+
+      .letter-degree {
+        font-size: 0.78rem;
+        letter-spacing: 0.04em;
+        margin-bottom: 12px;
+      }
+
+      .sep { margin: 2px 0 10px; font-size: 9px; letter-spacing: 6px; }
+
+      /* ── Grille date / heure / lieu ── */
+      .details-grid { margin: 3px 0 12px; }
+
+      .details-col { padding: 9px 5px; gap: 4px; }
+
+      .details-col-label { font-size: 0.46rem; letter-spacing: 0.22em; }
+
+      .details-col-value { font-size: 0.82rem; }
+
+      .details-col-sub { font-size: 0.66rem; }
+
+      .letter-honour { font-size: 0.78rem; }
+
+      .honour-filet { margin: 10px 0 8px; }
+
+      .letter-promo { font-size: 0.48rem; letter-spacing: 0.07em; }
+
+      /* ── Titres de sections ── */
+      .section-title { font-size: 1.15rem; margin-bottom: 12px; }
+      .section-divider { margin-bottom: 20px; }
+
+      /* ── Compte à rebours ── */
+      .countdown-grid {
+        gap: 6px;
+        flex-wrap: nowrap;
+      }
+
+      .countdown-num {
+        font-size: clamp(1.75rem, 8.5vw, 2.2rem);
+        min-width: clamp(56px, 17vw, 76px);
+        padding: 9px 5px;
+      }
+
+      .countdown-colon {
+        font-size: clamp(1rem, 4vw, 1.4rem);
+        padding-bottom: 18px;
+      }
+
+      .countdown-label {
+        font-size: 0.48rem;
+        letter-spacing: 0.16em;
+        margin-top: 6px;
+      }
+
+      /* ── Section Lieu ── */
+      .location-address {
+        font-size: 0.88rem;
+        line-height: 1.75;
+        margin-bottom: 16px;
+      }
+
+      .map-container {
+        width: 94vw;
+        height: 200px;
+        margin-bottom: 16px;
+      }
+
+      .btn-outline {
+        padding: 13px 22px;
+        font-size: 0.64rem;
+        letter-spacing: 0.12em;
+        min-height: 44px;
+      }
+
+      /* ── Section En ligne ── */
+      .online-subtitle {
+        font-size: 0.88rem;
+        line-height: 1.65;
+        margin-bottom: 20px;
+      }
+
+      #teams-btn {
+        padding: 13px 22px;
+        font-size: 0.64rem;
+        letter-spacing: 0.12em;
+        min-height: 44px;
+        margin-bottom: 22px;
+      }
+
+      /* ── Clôture ── */
+      .closing-sep { margin-bottom: 18px; }
+
+      .closing-monogram {
+        width: 54px; height: 54px;
+        font-size: 1rem;
+        margin-bottom: 12px;
+      }
+
+      .closing-text { font-size: 0.58rem; letter-spacing: 0.22em; margin-bottom: 8px; }
+
+      .closing-name { font-size: 1.25rem; margin-bottom: 6px; }
+
+      .closing-institution { font-size: 0.72rem; letter-spacing: 0.06em; }
+
+      .section-footer-filet { margin-top: 22px; }
+      .section-footer-ornament { font-size: 10px; margin-top: 10px; }
+
+      /* ── Flèche scroll ── */
+      .scroll-arrow { bottom: 20px; }
+
+    }
+
+    /* ── Très petits écrans (≤ 360px) ── */
+    @media (max-width: 360px) {
+      .countdown-num {
+        font-size: 1.55rem;
+        min-width: 50px;
+        padding: 8px 4px;
+      }
+      .countdown-colon { font-size: 0.9rem; }
+      .countdown-grid { gap: 4px; }
+
+      .letter-name { font-size: clamp(1.4rem, 9vw, 1.8rem); }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Global background photo — add campus_base64.txt content to src when available -->
+  <img id="bg-photo" src="" alt="" onerror="this.style.display='none'">
+
+  <!-- ═══════════════════════════════════════
+       PHASE 1 — ENVELOPE SCENE
+  ═══════════════════════════════════════ -->
+  <div id="envelope-scene">
+
+    <div id="envelope" role="button" aria-label="Ouvrir l'invitation" tabindex="0">
+      <div class="env-back"></div>
+      <div class="env-flap"></div>
+      <div class="env-left"></div>
+      <div class="env-right"></div>
+      <div class="env-bottom"></div>
+
+      <!-- Luxury seal with double circles + ✦ ornaments -->
+      <div id="seal">
+        <span class="seal-ornament t">✦</span>
+        <span class="seal-ornament b">✦</span>
+        <span class="seal-ornament l">✦</span>
+        <span class="seal-ornament r">✦</span>
+        <span class="seal-letters">MY</span>
+      </div>
+    </div>
+
+    <p class="click-hint">Cliquez pour ouvrir votre invitation</p>
+
+  </div>
+
+
+  <!-- ═══════════════════════════════════════
+       PHASE 2 — LETTER (SCROLLABLE)
+  ═══════════════════════════════════════ -->
+  <div id="letter" aria-hidden="true">
+
+    <!-- ── Section 1 — Invitation hero ── -->
+    <section id="section-1">
+      <div id="letter-bg-fallback"></div>
+      <!-- Placer campus.mp4 dans le même dossier que index.html -->
+      <video autoplay muted loop playsinline id="campus-video">
+        <source src="campus.mp4" type="video/mp4">
+      </video>
+      <div class="video-overlay"></div>
+      <div class="letter-border"></div>
+      <div class="filet-h top"></div>
+      <div class="filet-h bottom"></div>
+      <span class="corner tl">✦</span>
+      <span class="corner tr">✦</span>
+      <span class="corner bl">✦</span>
+      <span class="corner br">✦</span>
+
+      <!-- Rails décoratifs verticaux -->
+      <div class="side-rail side-rail-left" aria-hidden="true">
+        <div class="rail-line"></div>
+        <span class="rail-gem">✦</span>
+        <div class="rail-line"></div>
+        <span class="rail-gem">✦</span>
+        <div class="rail-line"></div>
+      </div>
+      <div class="side-rail side-rail-right" aria-hidden="true">
+        <div class="rail-line"></div>
+        <span class="rail-gem">✦</span>
+        <div class="rail-line"></div>
+        <span class="rail-gem">✦</span>
+        <div class="rail-line"></div>
+      </div>
+
+      <!-- Texte d'en-tête discret -->
+      <p class="section-eyebrow" aria-hidden="true">Institut des Hautes Études Commerciales de Sfax</p>
+      <!-- Marque de fin de section -->
+      <p class="section-year-mark" aria-hidden="true">Année Universitaire 2025 — 2026</p>
+
+      <div class="letter-content">
+        <div class="filet-top">
+          <span class="line"></span>
+          <span class="ornament">✦ ✦ ✦</span>
+          <span class="line"></span>
+        </div>
+
+        <p class="letter-label">
+          <span class="star">✦</span> Soutenance de Mémoire de Fin d'Études <span class="star">✦</span>
+        </p>
+
+        <h1 class="letter-name">Mariem YENGUI</h1>
+
+        <p class="letter-subtitle">a l'honneur de vous convier à la soutenance de son mémoire de fin d'études</p>
+
+        <p class="letter-degree">Master en Data Science for Business and Economics</p>
+
+        <div class="sep">✦ · ✦ · ✦</div>
+
+        <!-- Grille date / heure / lieu — sans emojis -->
+        <div class="details-grid">
+          <div class="details-col">
+            <span class="details-col-label">Date</span>
+            <span class="details-col-value">27 Juin 2026</span>
+          </div>
+          <div class="details-col-sep"></div>
+          <div class="details-col">
+            <span class="details-col-label">Heure</span>
+            <span class="details-col-value">10 h 00</span>
+          </div>
+          <div class="details-col-sep"></div>
+          <div class="details-col">
+            <span class="details-col-label">Lieu</span>
+            <span class="details-col-value">IHEC Sfax</span>
+            <span class="details-col-sub">Amphi Syphax</span>
+          </div>
+        </div>
+
+        <p class="letter-honour">Votre présence nous honorerait.</p>
+
+        <div class="honour-filet"></div>
+        <p class="letter-promo">IHEC Sfax · Promotion 2026</p>
+
+        <div class="filet-bottom">
+          <span class="line"></span>
+          <span class="ornament">✦ ✦ ✦</span>
+          <span class="line"></span>
+        </div>
+      </div>
+
+      <!-- Flèche scroll ↓ -->
+      <div class="scroll-arrow" id="scroll-arrow" aria-hidden="true">
+        <span>Défiler</span>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+             stroke="rgba(232,208,138,0.65)" stroke-width="1.5"
+             stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </div>
+    </section>
+
+
+    <!-- ── Section 2 — Compte à rebours ── -->
+    <section class="section-dark" id="section-2">
+      <div class="fade-section" id="fade-2">
+        <h2 class="section-title">✦ Compte à rebours ✦</h2>
+        <div class="section-divider"></div>
+
+        <div class="countdown-grid" id="countdown-grid">
+          <div class="countdown-block">
+            <div class="countdown-num" id="cd-days">--</div>
+            <div class="countdown-label">Jours</div>
+          </div>
+          <span class="countdown-colon">:</span>
+          <div class="countdown-block">
+            <div class="countdown-num" id="cd-hours">--</div>
+            <div class="countdown-label">Heures</div>
+          </div>
+          <span class="countdown-colon">:</span>
+          <div class="countdown-block">
+            <div class="countdown-num" id="cd-minutes">--</div>
+            <div class="countdown-label">Minutes</div>
+          </div>
+          <span class="countdown-colon">:</span>
+          <div class="countdown-block">
+            <div class="countdown-num" id="cd-seconds">--</div>
+            <div class="countdown-label">Secondes</div>
+          </div>
+        </div>
+
+        <p class="countdown-done" id="countdown-done" style="display:none;">
+          ✦ La soutenance a commencé ✦
+        </p>
+      </div>
+    </section>
+
+
+    <!-- ── Section 3 — Lieu ── -->
+    <section class="section-dark" id="section-3">
+      <div class="fade-section" id="fade-3">
+        <h2 class="section-title">✦ Lieu ✦</h2>
+        <div class="section-divider"></div>
+
+        <p class="location-address">
+          <strong>IHEC Sfax — Amphi Syphax</strong><br>
+          Avenue des Leaders, Sfax 3018<br>
+          Tunisie
+        </p>
+
+        <div class="map-container">
+          <iframe
+            src="https://maps.google.com/maps?q=IHEC+Sfax+Avenue+des+Leaders+Sfax+Tunisie&t=&z=15&ie=UTF8&iwloc=&output=embed"
+            loading="lazy"
+            title="IHEC Sfax sur Google Maps"
+            allowfullscreen>
+          </iframe>
+        </div>
+
+        <div class="location-btns">
+          <a href="https://maps.google.com/?q=IHEC+Sfax,+Avenue+des+Leaders,+Sfax+3018,+Tunisie"
+             target="_blank" class="btn-outline green">
+            🗺️ Ouvrir dans Maps
+          </a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ── Section 4 — En ligne + Clôture ── -->
+    <section class="section-dark" id="section-4">
+      <div class="fade-section" id="fade-4">
+        <h2 class="section-title">✦ En ligne ✦</h2>
+        <div class="section-divider"></div>
+
+        <p class="online-subtitle">
+          Rejoignez la soutenance via Microsoft Teams<br>
+          depuis n'importe où dans le monde.
+        </p>
+
+        <!-- Remplacer href="#" par le vrai lien Teams -->
+        <a href="https://teams.microsoft.com/meet/356759946987070?p=ohu1RPWtkmDg7sE9Re" target="_blank" id="teams-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="4" fill="#7BA7BC" opacity="0.18"/>
+            <text x="12" y="17" text-anchor="middle" font-size="14" font-weight="bold"
+                  fill="#7BA7BC" font-family="sans-serif">T</text>
+          </svg>
+          Rejoindre en ligne
+        </a>
+
+        <div class="closing-sep"></div>
+
+        <div class="closing-monogram" aria-hidden="true">MY</div>
+        <p class="closing-text">— Avec toute ma gratitude —</p>
+        <p class="closing-name">✦ Mariem YENGUI ✦</p>
+        <p class="closing-institution">IHEC Sfax · Master Data Science · 2026</p>
+
+        <div class="section-footer-filet"></div>
+        <div class="section-footer-ornament">✦ · ✦ · ✦</div>
+      </div>
+    </section>
+
+  </div><!-- /#letter -->
+
+
+  <script>
+  (function () {
+
+    /* ── Ouverture de l'enveloppe ── */
+    const scene    = document.getElementById('envelope-scene');
+    const envelope = document.getElementById('envelope');
+    const flap     = document.querySelector('.env-flap');
+    const hint     = document.querySelector('.click-hint');
+    const seal     = document.getElementById('seal');
+    const letter   = document.getElementById('letter');
+    const content  = document.querySelector('.letter-content');
+    const arrow    = document.getElementById('scroll-arrow');
+
+    let opened = false;
+
+    function openEnvelope() {
+      if (opened) return;
+      opened = true;
+
+      scene.style.animation = 'none';
+      hint.style.opacity = '0';
+      hint.style.pointerEvents = 'none';
+      flap.classList.add('open');
+      seal.style.opacity = '0';
+
+      setTimeout(() => {
+        letter.setAttribute('aria-hidden', 'false');
+        letter.classList.add('visible');
+      }, 400);
+
+      setTimeout(() => { content.classList.add('show'); }, 700);
+      setTimeout(() => { arrow.classList.add('show'); }, 1200);
+
+      envelope.style.pointerEvents = 'none';
+      envelope.setAttribute('tabindex', '-1');
+    }
+
+    envelope.addEventListener('click', openEnvelope);
+    envelope.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openEnvelope(); }
+    });
+
+    /* ── Fade-in au scroll (IntersectionObserver) ── */
+    const fadeEls = document.querySelectorAll('.fade-section');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { root: letter, threshold: 0.15 });
+
+    fadeEls.forEach(el => observer.observe(el));
+
+    /* ── Compte à rebours — cible : 27 juin 2026 à 10h00 (UTC+1) ── */
+    const TARGET = new Date('2026-06-27T10:00:00+01:00');
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function updateCountdown() {
+      const diff = TARGET - new Date();
+
+      if (diff <= 0) {
+        document.getElementById('countdown-grid').style.display = 'none';
+        document.getElementById('countdown-done').style.display = 'block';
+        return;
+      }
+
+      document.getElementById('cd-days').textContent    = pad(Math.floor(diff / 86400000));
+      document.getElementById('cd-hours').textContent   = pad(Math.floor((diff % 86400000) / 3600000));
+      document.getElementById('cd-minutes').textContent = pad(Math.floor((diff % 3600000) / 60000));
+      document.getElementById('cd-seconds').textContent = pad(Math.floor((diff % 60000) / 1000));
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+
+  })();
+  </script>
+
+</body>
+</html>
